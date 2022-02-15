@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.furestry.fabriquetestapp"},{"l":"ru.furestry.fabriquetestapp.configs"},{"l":"ru.furestry.fabriquetestapp.controllers"},{"l":"ru.furestry.fabriquetestapp.entities"},{"l":"ru.furestry.fabriquetestapp.entities.enums"},{"l":"ru.furestry.fabriquetestapp.services"}];updateSearchResults();
