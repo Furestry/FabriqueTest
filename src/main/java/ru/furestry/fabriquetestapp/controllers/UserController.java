@@ -11,6 +11,7 @@ import ru.furestry.fabriquetestapp.entities.User;
 import ru.furestry.fabriquetestapp.services.SurveyService;
 import ru.furestry.fabriquetestapp.services.UserService;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -87,6 +88,14 @@ public class UserController {
 
         if (survey == null) {
             return HttpStatus.NOT_FOUND;
+        }
+
+        if (LocalDateTime.now().isBefore(survey.getStartTime())) {
+            return HttpStatus.TOO_EARLY;
+        }
+
+        if (LocalDateTime.now().isAfter(survey.getEndTime())) {
+            return HttpStatus.LOCKED;
         }
 
         answers.forEach(answer -> {
