@@ -48,6 +48,6 @@ public class UserService {
         return users.stream()
                 .filter(user -> user.getId() == id)
                 .findFirst()
-                .orElse(new User());
+                .orElse(new User(id));
     }
 }
