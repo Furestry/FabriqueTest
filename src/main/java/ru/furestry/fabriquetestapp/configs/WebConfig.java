@@ -31,7 +31,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests(a -> a
                         .antMatchers("/user**", "/survey**", "/surveys").permitAll()
-                        .antMatchers("/admin").authenticated()
+                        .antMatchers("/admin**").authenticated()
                 )
                 .logout(l -> l
                         .logoutSuccessUrl("/surveys").permitAll()
