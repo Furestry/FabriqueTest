@@ -36,9 +36,7 @@ public class AdminController {
      * @param body Request body contains Survey id, editing parameter name and new parameter value
      */
     @PostMapping("/admin")
-    public void editSurvey(
-            @RequestBody JsonNode body
-    ) {
+    public void editSurvey(@RequestBody JsonNode body) {
         JsonMapper mapper = JsonMapper.builder().build();
 
         long id = body.get("id").asLong();
