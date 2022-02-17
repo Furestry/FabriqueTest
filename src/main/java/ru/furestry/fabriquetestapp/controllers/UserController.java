@@ -1,15 +1,17 @@
 package ru.furestry.fabriquetestapp.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import ru.furestry.fabriquetestapp.entities.Answer;
+import ru.furestry.fabriquetestapp.entities.Question;
 import ru.furestry.fabriquetestapp.entities.Survey;
 import ru.furestry.fabriquetestapp.entities.User;
 import ru.furestry.fabriquetestapp.services.SurveyService;
 import ru.furestry.fabriquetestapp.services.UserService;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Controller for user pages
@@ -61,16 +63,55 @@ public class UserController {
      * @return REST survey by id
      */
     @GetMapping("/survey")
-    public Survey getSurvey(@RequestParam(defaultValue = "1") long id) {
+    public Survey getSurvey(@RequestParam long id) {
         return surveyService.getSurvey(id);
     }
 
     /**
+     * Send user answers for survey
      *
-     * @return string
+     * @param body Request body contains User id, Survey id and answers(Question id and answer)
      */
     @PostMapping("/survey")
-    public String sendSurvey() {
-        return "";
+    public HttpStatus sendSurvey(@RequestBody JsonNode body) {
+        JsonMapper mapper = new JsonMapper();
+        long userId = body.get("userId").asLong();
+        long surveyId = body.get("surveyId").asLong();
+
+        List<JsonNode> answers = mapper.convertValue(body.get("answers"), List.class);
+
+        User user = new User(userId);
+        Survey survey = surveyService.getSurvey(surveyId);
+        Map<Survey, List<Answer>> answerMap = new HashMap<>();
+        List<Answer> answerList = new ArrayList<>();
+
+        if (survey == null) {
+            return HttpStatus.NOT_FOUND;
+        }
+
+        answers.forEach(answer -> {
+            long questionId = answer.get("questionId").asLong();
+            String answerText = answer.get("answer").asText();
+
+            Question question = survey.getQuestions().stream()
+                    .filter(q -> q.getId() == questionId)
+                    .findFirst()
+                    .orElse(null);
+
+            if (question != null) {
+                answerList.add(new Answer(question, answerText));
+            }
+        });
+
+        if (answerList.size() == 0) {
+            return HttpStatus.BAD_REQUEST;
+        }
+
+        answerMap.put(survey, answerList);
+        user.setAnswers(answerMap);
+        userService.addUser(user);
+
+        return HttpStatus.OK;
+
     }
 }

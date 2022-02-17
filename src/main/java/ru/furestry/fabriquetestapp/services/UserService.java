@@ -1,11 +1,13 @@
 package ru.furestry.fabriquetestapp.services;
 
 import org.springframework.stereotype.Service;
+import ru.furestry.fabriquetestapp.entities.Answer;
 import ru.furestry.fabriquetestapp.entities.Survey;
 import ru.furestry.fabriquetestapp.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * UserService - class for managements list of {@link User}
@@ -25,12 +27,12 @@ public class UserService {
     public void addUser(User user) {
         User containedUser = getUser(user.getId());
 
-        if (containedUser != null) {
-            List<Survey> surveys = containedUser.getSurveys();
+        if (users.contains(user)) {
+            Map<Survey, List<Answer>> surveys = containedUser.getAnswers();
 
-            surveys.addAll(user.getSurveys());
+            surveys.putAll(user.getAnswers());
 
-            containedUser.setSurveys(surveys);
+            containedUser.setAnswers(surveys);
 
             users.add(containedUser);
         } else {

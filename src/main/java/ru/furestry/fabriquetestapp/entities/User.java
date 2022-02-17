@@ -3,6 +3,7 @@ package ru.furestry.fabriquetestapp.entities;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class representing a user
@@ -14,7 +15,7 @@ public class User {
 
     private long id;
 
-    private List<Survey> surveys;
+    private Map<Survey, List<Answer>> answers;
 
     public User(long id) {
         this.id = id;
