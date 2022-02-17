@@ -30,7 +30,7 @@ public class SurveyService {
     /**
      * Remove survey for survey list
      *
-     * @param survey
+     * @param survey survey to remove from survey list
      */
     public void removeSurvey(Survey survey) {
         surveys.remove(survey);
@@ -39,7 +39,7 @@ public class SurveyService {
     /**
      * Remove survey by id for survey list
      *
-     * @param id Survey id
+     * @param id Survey id to remove from survey list
      */
     public void removeSurvey(long id) {
         surveys.removeIf(survey -> survey.getId() == id);

@@ -72,6 +72,7 @@ public class UserController {
      * Send user answers for survey
      *
      * @param body Request body contains User id, Survey id and answers(Question id and answer)
+     * @return HttpStatus may be Not Found(404), Too Early(425) or Locked(423)
      */
     @PostMapping("/survey")
     public HttpStatus sendSurvey(@RequestBody JsonNode body) {

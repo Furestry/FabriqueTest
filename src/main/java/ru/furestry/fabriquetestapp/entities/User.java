@@ -17,6 +17,11 @@ public class User {
 
     private Map<Survey, List<Answer>> answers;
 
+    /**
+     * Class constructor
+     *
+     * @param id User id
+     */
     public User(long id) {
         this.id = id;
     }
