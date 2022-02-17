@@ -12,7 +12,11 @@ import java.util.List;
 @Data
 public class User {
 
-    private long id = 1;
+    private long id;
 
     private List<Survey> surveys;
+
+    public User(long id) {
+        this.id = id;
+    }
 }
