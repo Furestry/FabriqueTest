@@ -1,5 +1,6 @@
 package ru.furestry.fabriquetestapp.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.List;
  * @author Sevler
  */
 @Data
+@AllArgsConstructor
 public class Survey {
 
     private long id;
