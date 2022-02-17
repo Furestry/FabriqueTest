@@ -28,6 +28,24 @@ public class SurveyService {
     }
 
     /**
+     * Remove survey for survey list
+     *
+     * @param survey
+     */
+    public void removeSurvey(Survey survey) {
+        surveys.remove(survey);
+    }
+
+    /**
+     * Remove survey by id for survey list
+     *
+     * @param id Survey id
+     */
+    public void removeSurvey(long id) {
+        surveys.removeIf(survey -> survey.getId() == id);
+    }
+
+    /**
      * Change end time of survey
      *
      * @param survey survey to change time
@@ -55,7 +73,7 @@ public class SurveyService {
         return surveys.stream()
                 .filter(survey -> survey.getId() == id)
                 .findFirst()
-                .orElse(new Survey());
+                .orElse(null);
     }
 
     /**
