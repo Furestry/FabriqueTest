@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 import ru.furestry.fabriquetestapp.entities.Survey;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class SurveyService {
 
-    private List<Survey> surveys = new ArrayList<>();
+    private HashSet<Survey> surveys = new HashSet<>();
 
     /**
      * Adds survey to survey list
@@ -46,24 +46,6 @@ public class SurveyService {
     }
 
     /**
-     * Change end time of survey
-     *
-     * @param survey survey to change time
-     * @param time time to change
-     * @return survey with changed time
-     */
-    public Survey changeEndTime(Survey survey, LocalDateTime time) {
-        boolean contains = surveys.contains(survey);
-        survey.setEndTime(time);
-
-        if (contains) {
-            surveys.set(surveys.indexOf(survey), survey);
-        }
-
-        return survey;
-    }
-
-    /**
      * Returns the Survey by id
      *
      * @param id Survey id
@@ -81,19 +63,19 @@ public class SurveyService {
      *
      * @return list of all active surveys
      */
-    public List<Survey> getActiveSurveys() {
+    public Set<Survey> getActiveSurveys() {
         return surveys
                 .stream()
                 .filter(survey -> survey.getEndTime().isAfter(LocalDateTime.now()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     /**
-     * Returns the list of all surveys
+     * Returns the Hash Set of all surveys
      *
-     * @return list of all surveys
+     * @return Hash Set of all surveys
      */
-    public List<Survey> getAllSurveys() {
+    public HashSet<Survey> getAllSurveys() {
         return surveys;
     }
 }

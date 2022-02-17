@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
 
 /**
  * Class representing a survey
@@ -23,5 +23,5 @@ public class Survey {
 
     private String description;
 
-    private List<Question> questions;
+    private HashSet<Question> questions;
 }

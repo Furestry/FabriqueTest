@@ -5,8 +5,7 @@ import ru.furestry.fabriquetestapp.entities.Answer;
 import ru.furestry.fabriquetestapp.entities.Survey;
 import ru.furestry.fabriquetestapp.entities.User;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -17,7 +16,7 @@ import java.util.Map;
 @Service
 public class UserService {
 
-    private List<User> users = new ArrayList<>();
+    private HashSet<User> users = new HashSet<>();
 
     /**
      * Adds user to user list
@@ -28,7 +27,7 @@ public class UserService {
         User containedUser = getUser(user.getId());
 
         if (users.contains(user)) {
-            Map<Survey, List<Answer>> surveys = containedUser.getAnswers();
+            Map<Survey, HashSet<Answer>> surveys = containedUser.getAnswers();
 
             surveys.putAll(user.getAnswers());
 

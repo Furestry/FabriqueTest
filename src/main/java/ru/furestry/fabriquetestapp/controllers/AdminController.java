@@ -9,7 +9,7 @@ import ru.furestry.fabriquetestapp.entities.Survey;
 import ru.furestry.fabriquetestapp.services.SurveyService;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
 
 /**
  * Controller for admin pages
@@ -44,15 +44,24 @@ public class AdminController {
         Survey survey = surveyService.getSurvey(id);
 
         switch (body.get("param").asText()) {
-            case "questions" -> survey.setQuestions(mapper.convertValue(value, List.class));
+            case "questions" -> {
+                surveyService.removeSurvey(survey);
+                survey.setQuestions(mapper.convertValue(value, HashSet.class));
+                surveyService.addSurvey(survey);
+            }
 
-            case "description" -> survey.setDescription(value.asText());
+            case "description" -> {
+                surveyService.removeSurvey(survey);
+                survey.setDescription(value.asText());
+                surveyService.addSurvey(survey);
+            }
 
-            case "endTime" -> survey.setEndTime(mapper.convertValue(value, LocalDateTime.class));
+            case "endTime" -> {
+                surveyService.removeSurvey(survey);
+                survey.setEndTime(mapper.convertValue(value, LocalDateTime.class));
+                surveyService.addSurvey(survey);
+            }
         }
-
-        System.out.println(body);
-        System.out.println(survey);
     }
 
     /**
@@ -68,7 +77,7 @@ public class AdminController {
     public void createSurvey(
             @RequestParam long id,
             @RequestParam String description,
-            @RequestBody List<Question> questions,
+            @RequestBody HashSet<Question> questions,
             @RequestParam("startTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
             @RequestParam("endTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime
     ) {

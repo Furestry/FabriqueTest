@@ -53,7 +53,7 @@ public class UserController {
      * @return REST list of current active surveys
      */
     @GetMapping("/surveys")
-    public List<Survey> getSurveys() {
+    public Set<Survey> getSurveys() {
         return surveyService.getActiveSurveys();
     }
 
@@ -84,8 +84,8 @@ public class UserController {
 
         User user = new User(userId);
         Survey survey = surveyService.getSurvey(surveyId);
-        Map<Survey, List<Answer>> answerMap = new HashMap<>();
-        List<Answer> answerList = new ArrayList<>();
+        Map<Survey, HashSet<Answer>> answerMap = new HashMap<>();
+        HashSet<Answer> answerList = new HashSet<>();
 
         if (survey == null) {
             return HttpStatus.NOT_FOUND;

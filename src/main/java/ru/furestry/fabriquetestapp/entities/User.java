@@ -2,7 +2,7 @@ package ru.furestry.fabriquetestapp.entities;
 
 import lombok.Data;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -15,7 +15,7 @@ public class User {
 
     private long id;
 
-    private Map<Survey, List<Answer>> answers;
+    private Map<Survey, HashSet<Answer>> answers;
 
     /**
      * Class constructor
