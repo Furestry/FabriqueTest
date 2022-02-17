@@ -22,8 +22,8 @@ By default, in app admin password is '12345'. You can change his in 'application
 To create survey you need send Put request to /admin/ endpoint with parameters:
 - id as long
 - description as String
-- start time in ISO format (yyyy-MM-ddTHH:mm)
-- end time in ISO format  
+- startTime in ISO format (yyyy-MM-ddTHH:mm)
+- endTime in ISO format  
   
 and with request body with questions like:
 
