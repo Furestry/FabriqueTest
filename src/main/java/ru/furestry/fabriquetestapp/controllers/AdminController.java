@@ -1,9 +1,15 @@
 package ru.furestry.fabriquetestapp.controllers;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+import ru.furestry.fabriquetestapp.entities.Question;
+import ru.furestry.fabriquetestapp.entities.Survey;
 import ru.furestry.fabriquetestapp.services.SurveyService;
-import ru.furestry.fabriquetestapp.services.UserService;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Controller for admin pages
@@ -13,26 +19,73 @@ import ru.furestry.fabriquetestapp.services.UserService;
 @RestController
 public class AdminController {
 
-    private UserService userService;
     private SurveyService surveyService;
 
     /**
      * Class constructor
      *
-     * @param userService user service
      * @param surveyService survey service
      */
-    public AdminController(UserService userService, SurveyService surveyService) {
-        this.userService = userService;
+    public AdminController(SurveyService surveyService) {
         this.surveyService = surveyService;
     }
 
     /**
+     * Edit survey param by id
      *
-     *
+     * @param body Request body contains Survey id, editing parameter name and new parameter value
      */
     @PostMapping("/admin")
-    public void adminPageEdit() {
+    public void editSurvey(
+            @RequestBody JsonNode body
+    ) {
+        JsonMapper mapper = JsonMapper.builder().build();
 
+        long id = body.get("id").asLong();
+        JsonNode value = body.get("value");
+        Survey survey = surveyService.getSurvey(id);
+
+        switch (body.get("param").asText()) {
+            case "questions" -> survey.setQuestions(mapper.convertValue(value, List.class));
+
+            case "description" -> survey.setDescription(value.asText());
+
+            case "endTime" -> survey.setEndTime(mapper.convertValue(value, LocalDateTime.class));
+        }
+
+        System.out.println(body);
+        System.out.println(survey);
+    }
+
+    /**
+     * Create survey
+     *
+     * @param id Request param - new Survey id
+     * @param description Request param - Survey description
+     * @param questions Request body - questions contains id, text and type
+     * @param startTime Request param - start time in ISO format
+     * @param endTime Request param - end time in ISO format
+     */
+    @PutMapping("/admin")
+    public void createSurvey(
+            @RequestParam long id,
+            @RequestParam String description,
+            @RequestBody List<Question> questions,
+            @RequestParam("startTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+            @RequestParam("endTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime
+    ) {
+        surveyService.addSurvey(
+                new Survey(id, startTime, endTime, description, questions)
+        );
+    }
+
+    /**
+     * Delete survey for survey list
+     *
+     * @param id Request param - Survey id
+     */
+    @DeleteMapping
+    public void deleteSurvey(@RequestParam long id) {
+        surveyService.removeSurvey(id);
     }
 }
