@@ -109,9 +109,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createSurvey(long,java.lang.String,java.util.List,java.time.LocalDateTime,java.time.LocalDateTime)" class="member-name-link">createSurvey</a><wbr>(long&nbsp;id,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createSurvey(long,java.lang.String,java.util.HashSet,java.time.LocalDateTime,java.time.LocalDateTime)" class="member-name-link">createSurvey</a><wbr>(long&nbsp;id,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;description,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../entities/Question.html" title="class in ru.furestry.fabriquetestapp.entities">Question</a>&gt;&nbsp;questions,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html" title="class or interface in java.util" class="external-link">HashSet</a>&lt;<a href="../entities/Question.html" title="class in ru.furestry.fabriquetestapp.entities">Question</a>&gt;&nbsp;questions,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;startTime,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;endTime)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -177,7 +177,7 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="createSurvey(long,java.lang.String,java.util.List,java.time.LocalDateTime,java.time.LocalDateTime)">
+<section class="detail" id="createSurvey(long,java.lang.String,java.util.HashSet,java.time.LocalDateTime,java.time.LocalDateTime)">
 <h3>createSurvey</h3>
 <div class="member-signature"><span class="annotations">@PutMapping("/admin")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">createSurvey</span><wbr><span class="parameters">(@RequestParam
@@ -185,7 +185,7 @@ loadScripts(document, 'script');</script>
  @RequestParam
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;description,
  @RequestBody
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../entities/Question.html" title="class in ru.furestry.fabriquetestapp.entities">Question</a>&gt;&nbsp;questions,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html" title="class or interface in java.util" class="external-link">HashSet</a>&lt;<a href="../entities/Question.html" title="class in ru.furestry.fabriquetestapp.entities">Question</a>&gt;&nbsp;questions,
  @RequestParam("startTime") @DateTimeFormat(iso=DATE_TIME)
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;startTime,
  @RequestParam("endTime") @DateTimeFormat(iso=DATE_TIME)
